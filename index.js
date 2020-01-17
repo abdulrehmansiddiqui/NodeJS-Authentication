@@ -13,7 +13,6 @@ const { mongoUrl } = require('./key')
 
 require('./models/User')
 
-const requireToken = require('./middleware/requireToken')
 const authRoutes = require('./routes/authRoutes')
 app.use(bodyParser.json())
 app.use(authRoutes)
@@ -30,12 +29,6 @@ mongoose.connection.on('connected', () => {
 mongoose.connection.on('error', (err) => {
     console.log("This is error", err)
 })
-
-
-app.get('/', requireToken, (req, res) => {
-    res.send("your email is " + req.user.email + req.user.password)
-})
-
 
 app.listen(PORT, () => {
     console.log("Server Running " + PORT)

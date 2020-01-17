@@ -5,6 +5,11 @@ const { jwtkey } = require('../key')
 const router = express.Router();
 const User = mongoose.model('User')
 
+const requireToken = require('../middleware/requireToken')
+
+router.get('/verify', requireToken, (req, res) => {
+    res.send("your email is " + req.user.email + req.user.password)
+})
 
 router.post('/signup', async (req, res) => {
     // console.log(req.body)
